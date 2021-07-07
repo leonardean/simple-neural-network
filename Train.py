@@ -37,6 +37,7 @@ def MSE(y, Y):
 for ii in range(iterations):
     # pick 128 random records from training data set
     batch = np.random.choice(train_features.index, size=128)
+
     X, y = train_features.iloc[batch].values, train_targets.iloc[batch]['cnt']
 
     network.train(X, y)

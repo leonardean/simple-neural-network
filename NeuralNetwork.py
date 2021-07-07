@@ -51,15 +51,16 @@ class NeuralNetwork:
 
             # Backward Pass
             error = y - final_outputs
-            output_error_term = error * self.activation_function_prime2(final_outputs)
+            output_error_term = error * self.activation_function_prime2(final_inputs)
 
-            hidden_error = np.dot(output_error_term, self.weights_hidden_to_output.T)
+            hidden_error = np.dot(self.weights_hidden_to_output, error)
             hidden_error_term = hidden_error * self.activation_function_prime(hidden_inputs)
 
             # Weight steps
             delta_weights_i_h += hidden_error_term * X[:, None]
             delta_weights_h_o += output_error_term * hidden_outputs[:, None]
 
+        # Weights update
         self.weights_hidden_to_output += self.lr * delta_weights_h_o / n_records
         self.weights_input_to_hidden += self.lr * delta_weights_i_h / n_records
 
